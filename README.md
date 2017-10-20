@@ -26,3 +26,7 @@ WildGardens_ZH-CN12707941302_1920x1080.jpg
 # 感谢
 
 [BING 今日美图](http://bing.plmeizi.com/)
+
+# 版权所有
+
+© 2017 Microsoft
