@@ -1,6 +1,6 @@
 # Bing 今日美图
 
-Bing today's images. 学习 Python 练手项目，抓取 Bing 今日美图。由于刚刚学习 Python，代码写的实在太差，更新后再上传。
+Bing today's images. 学习 Python 练手项目，抓取 Bing 今日美图。由于刚刚学习 Python，代码写的实在太差，待更改。
 
 # 抓取失败图片
 
@@ -18,6 +18,10 @@ SugarLoafTramVideo_ZH-CN8730080670_1920x1080.jpg
 SunsetDartmoor_ZH-CN8298298012_1920x1080.jpg
 WhiteSwan_ZH-CN12970644283_1920x1080.jpg
 WildGardens_ZH-CN12707941302_1920x1080.jpg
+
+# 租服务器定时跑脚本，微信赞赏码
+
+<img width="300" src="https://user-images.githubusercontent.com/7275046/31833456-32c4ad32-b5fd-11e7-9090-f55fc20c8bf3.JPG"/>
 
 # 感谢
 
