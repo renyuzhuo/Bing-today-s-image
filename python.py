@@ -73,6 +73,13 @@ def oneDay2dict(oneDay):
         'data': oneDay.data[1:9]
     }
 
+def oneDay2dict2(oneDay):
+    return {
+        'alt': oneDay.src,
+        'jpg': oneDay.jpg,
+        'data': oneDay.data
+    }
+
 def getImage():
 	for pageNum in range(1, 51):
 		weburl = "http://bing.plmeizi.com/?page=" + str(pageNum)
@@ -105,30 +112,45 @@ def downloadImage():
 		imageWebUrl = imgUrl
 		imgUrl = imgUrl.replace('http://bimgs.plmeizi.com/images/bing/2017/', '').replace('http://bimgs.plmeizi.com/images/bing/2016/', '').replace('http://s.cn.bing.net/az/hprichbg/rb/', '')
 		img = requests.get(imageWebUrl)
-		with open('web/' + imgUrl, 'wb') as f:
+		with open('write/' + imgUrl, 'wb') as f:
 			f.write(img.content)
+
+def getNowTime():
+    return int(time.strftime("%Y%m%d",time.localtime(time.time())))
+
+def getImageFromBing():
+	with open('all.json', 'r') as f:
+		imagesObj=json.load(f)
+	# print(imagesObj[0]['data'])
+	imageData = int(imagesObj[0]['data'])
+	if getNowTime() == imageData:
+		print('today bing image has load')
+		return
+	# print(imageData)
+	url = 'http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=10&mkt=en-US'
+	imagesJson = requests.get(url)
+	# print(imagesJson.text)
+	jsonObj= json.loads(str(imagesJson.text))
+	# print(jsonObj)
+	position = 0
+	for bingImageObj in jsonObj['images']:
+		print(bingImageObj)
+		if int(bingImageObj['enddate']) > imageData:
+			oneDay = OneDay(bingImageObj['copyright'] + ' ('+ bingImageObj['enddate'] +')', 'http://www.bing.com' + bingImageObj['url'], bingImageObj['enddate'])
+			img = requests.get('http://www.bing.com' + bingImageObj['url'])
+			imgUrl = bingImageObj['url'].replace('/az/hprichbg/rb/', '')
+			with open('images/' + imgUrl, 'wb') as f:
+				f.write(img.content)
+			imagesObj.insert(position, oneDay)
+			position = position + 1
+			jsonStr = json.dumps(list(imagesObj), default=oneDay2dict2)
+			with open('all.json', 'w') as fJ:
+				fJ.write(jsonStr)
+	os.system('git add .')
+	os.system('git commit -m "'+str(getNowTime())+'"')
+	os.system('git push origin master')
 
 if __name__ == "__main__":   
     # getImage()
-	downloadImage()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	# downloadImage()
+	getImageFromBing()
