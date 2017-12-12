@@ -64,7 +64,7 @@ class OneDay(json.JSONEncoder):
 	def __init__(self, s, j, d):
 		self.src=s
 		self.jpg=j
-		self.data=d		
+		self.data=d
 
 def oneDay2dict(oneDay):
     return {
