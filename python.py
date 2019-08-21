@@ -139,7 +139,8 @@ def getImageFromBing():
 		if int(bingImageObj['enddate']) > imageData:
 			oneDay = OneDay(bingImageObj['copyright'] + ' ('+ bingImageObj['enddate'] +')', 'http://www.bing.com' + bingImageObj['url'], bingImageObj['enddate'])
 			img = requests.get('http://www.bing.com' + bingImageObj['url'])
-			imgUrl = bingImageObj['url'].replace('/az/hprichbg/rb/', '')
+			# https://www.bing.com/th?id=OHR.Gnomesville_EN-US4972983987_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp
+			imgUrl = bingImageObj['url'].replace('th?id=OHR.', '').replace('&rf=LaDigue_1920x1080.jpg&pid=hp', '').replace('/az/hprichbg/rb/', '')
 			with open('images/' + imgUrl, 'wb') as f:
 				f.write(img.content)
 			imagesObj.insert(position, oneDay)
